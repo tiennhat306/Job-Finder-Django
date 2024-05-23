@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch đăng</title>
+    {% load static %}
+	<link href="{% static 'admin_employer/css/stage.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'candidate/img/logo_title.png' %}">
+    <style>
+        .form_time {
+            display: flex;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+        <section>
+            <div class="nav-info">
+                <div class="icons">
+					<div class="icon">
+						<a href="{% url 'add-job-stage-1' %}">1</a>
+						<p>Thông tin công việc</p>
+					</div>
+					<div class="icon">
+						<a href="{% url 'add-job-stage-2' %}">2</a>
+						<p>Mô tả công việc</p>
+					</div>
+					<div class="icon">
+						<a href="{% url 'add-job-stage-3' %}">3</a>
+						<p>Thông tin liên hệ</p>
+					</div>
+					<div class="icon active">
+						<a href="{% url 'add-job-stage-4' %}">4</a>
+						<p>Lịch đăng</p>
+					</div>
+                </div>
+            </div>
+            <div class="form_infomation">
+                <form action="{% url 'add-job-stage-4' %}" method="post">
+                    {% csrf_token %}
+                    <label>Thời gian</label>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="postingDate">Ngày đăng</label>
+                            <input type="date" name="posting_date" id="postingDate" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="expirationDate">Ngày hết hạn</label>
+                            <input type="date" name="expiration_date" id="expirationDate" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input type="submit" value="Tạo" name="buttonSaveStage5">
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

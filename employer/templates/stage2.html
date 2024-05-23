@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<title>Mô tả công việc</title>
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- App favicon -->
+<link href="{% static 'admin_employer/css/stage.css' %}" rel="stylesheet" type="text/css" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'candidate/img/logo_title.png' %}">
+
+</head>
+<body>
+	<div>
+		<section>
+			<div class="nav-info">
+				<div class="icons">
+					<div class="icon">
+						<a href="{% url 'add-job-stage-1' %}">1</a>
+						<p>Thông tin công việc</p>
+					</div>
+					<div class="icon active">
+						<a href="{% url 'add-job-stage-2' %}">2</a>
+						<p>Mô tả công việc</p>
+					</div>
+					<div class="icon">
+						<a href="{% url 'add-job-stage-3' %}">3</a>
+						<p>Thông tin liên hệ</p>
+					</div>
+					<div class="icon">
+						<a href="{% url 'add-job-stage-4' %}">4</a>
+						<p>Lịch đăng</p>
+					</div>
+				</div>
+			</div>
+			<div class="form_infomation">
+				<form action="{% url 'add-job-stage-2' %}" method="post">
+					{% csrf_token %}
+					<h3>Mô tả công việc</h3>
+					<div class="col-md-6">
+						<div class="input-group-append">
+							<label>Ngành nghề</label>
+							<select name="career">
+								<option value="0">Chọn ngành nghề</option>
+								{% for career in careers %}
+									<option value="{{career.id}}">{{career.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="col-md-12 form_position">
+						<div class="col-md-6">
+							<label>Tỉnh/thành phố</label>
+							<select name="city">
+								<option value="0">Chọn tỉnh/thành phố</option>
+								{% for city in cities %}
+								<option value="{{city.id}}">{{city.name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label >Địa chỉ</label> <input type="text"
+								name="address" id="address"
+								placeholder="Nhập địa chỉ công ty của bạn" required>
+						</div>
+					</div>
+
+					<div class="col-md-12 form_position">
+						<div class="col-md-6">
+							<label >Loại công việc</label> <select
+								name="job_type" id="job_type" required>
+								<option value="1">Nhân viên toàn thời gian</option>
+								<option value="2">Nhân viên bán thời gian</option>
+								<option value="3">Nhân viên hợp đồng</option>
+								<!-- Add more options as needed -->
+							</select>
+						</div>
+						<div class="col-md-6">
+							<label>Cấp bậc</label> <select name="job_level"
+								id="rank" required>
+								<option value="1">Thực tập sinh</option>
+								<option value="2">Nhân viên</option>
+								<option value="3">Trưởng nhóm</option>
+								<option value="4">Quản lý</option>
+								<option value="5">Giám đốc</option>
+							</select>
+						</div>
+					</div>
+					<div>
+
+						<label>Lương</label>
+						<div class="SalaryStructure col-md-12">
+							<div class="col-md-3-salary">
+								<input type="radio" name="salary_type" id="nhap" value="1"
+									   required> <label for="nhap">Tối thiểu</label>
+							</div>
+
+							<div class="col-md-3-salary">
+								<input type="radio" name="salary_type" id="hon" value="2"
+									   required> <label for="hon">Tối đa</label>
+							</div>
+
+							<div class="col-md-3-salary">
+								<input type="radio" name="salary_type" id="tuden"
+									   value="3" required> <label for="tuden">Từ - đến</label>
+							</div>
+
+							<div class="col-md-3-salary">
+								<input type="radio" name="salary_type" id="thoathuan" value="4"
+									   required> <label for="thoathuan">Thỏa thuận</label>
+							</div>
+						</div>
+						<div>
+							<div class="col-md-12 form_position">
+								<div class="col-md-6">
+									<div class="input-group-append">
+										<input type="text" name="salary_from" id="salary_from" class="form-control"
+											   placeholder="Số tiền">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group-append">
+										<input type="text" name="salary_to" id="salary_to" class="form-control"
+											   placeholder="Số tiền">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<label>Tuổi</label>
+					<div class="SalaryStructure">
+						<div class="col-md-3-salary">
+							<input type="radio" name="age_type" id="batky" value="1"
+								   required> <label>Bất kỳ</label>
+						</div>
+
+						<div class="col-md-3-salary">
+							<input type="radio" name="age_type" id="lonhon" value="2"
+								   required> <label>Lớn hơn</label>
+						</div>
+
+						<div class="col-md-3-salary">
+							<input type="radio" name="age_type" id="behon"
+								   value="3" required> <label>Bé hơn</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 form_position">
+							<div class="col-md-6">
+								<div class="input-group-append">
+									<input type="text" name="age_from" id="age_from" class="form-control"
+										   placeholder="Tuổi">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group-append">
+									<input type="text" name="age_to" id="age_to" class="form-control"
+										   placeholder="Tuổi">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row col-md-12">
+						<div class="form_position col-md-12">
+
+							<div class="col-md-6">
+								<label>Số lượng cần tuyển</label> <input type="text"
+																		 name="quantity" id="quantity" placeholder="Nhập số lượng cần tuyển"
+																		 required>
+							</div>
+							<div class="col-md-6">
+								<label for="employeeNumber">Giới tính</label> <select
+									name="gender_type" id="employeeNumber" required>\
+								<option value="0">Bất kỳ</option>
+								<option value="1">Nam</option>
+								<option value="2">Nữ</option>
+								<!-- Add more options as needed -->
+							</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<label for="summary">Mô tả công việc</label>
+						<textarea name="job_description" id="summary" rows="5"
+								  placeholder="Mô tả công việc"></textarea>
+					</div>
+
+					<div class="row_experience">
+						<div class="col-md-12">
+							<h3>Kinh nghiệm/Kỹ năng</h3>
+							<div class="form_position">
+								<div class="col-md-6">
+									<label>Trình độ học vấn</label>
+									<select
+										name="qualification" id="qualification" required>
+										<option value="1">Không yêu cầu</option>
+										<option value="2">Tốt nghiệp THPT</option>
+										<option value="3">Có chứng chỉ nghề</option>
+										<option value="4">Cao đẳng</option>
+										<option value="5">Đại học</option>
+										<option value="6">Sau đại học</option>
+									</select>
+								</div>
+								<div class="col-md-6">
+									<label>Mức kinh nghiệm</label>
+									<select name="year_of_experience" id="yearOfExperience" required>
+										<option value="1">Không yêu cầu kinh nghiệm</option>
+										<option value="2">6 tháng - 1 năm kinh nghiệm</option>
+										<option value="3">2 - 3 năm kinh nghiệm</option>
+										<option value="4">4 - 5 năm kinh nghiệm</option>
+										<option value="5">Trên 5 năm kinh nghiệm</option>
+										<!-- Add more options as needed -->
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<label for="summary">Kinh nghiệm/Kỹ năng chi tiết</label>
+								<textarea name="requirements" id="requirements" rows="5"
+										  placeholder="Nhập các yêu cầu kỹ năng chi tiết"></textarea>
+							</div>
+							<div class="col-md-12">
+								<label for="summary">Phúc lợi</label>
+								<textarea name="benefits" id="benefits" rows="5"
+										  placeholder="Nhập các phúc lợi"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="submit" value="Tiếp tục">
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

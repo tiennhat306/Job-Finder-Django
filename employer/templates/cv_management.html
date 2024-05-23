@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư xin việc đã nhận</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'candidate/img/logo_title.png' %}">
+    <link rel="stylesheet" href="{% static 'admin_employer/css/bootstrap2.css' %}">
+    <link href="{% static 'admin_employer/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'admin_employer/css/toastr.min.css' %}">
+    <link href="{% static 'admin_employer/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- <script src="libs/toastr/toastr.min.js"></script>
+    <script src="js/pages/toastr.init.js"></script> -->
+    <style>
+        .form-group {
+            display: inline-block;
+        }
+
+        .page-title {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1.4;
+            color: #084ABC;
+            padding-top: 20px !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            letter-spacing: -1px;
+            font-family: "Nunito Sans", sans-serif;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .rounded-circle.img-thumbnail.picture-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .before-input {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        .after-input {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        .col-sm-12.input-info {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .col-sm-12.input-info:focus {
+            border: 1px solid #66afe9;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #66afe9;
+        }
+
+        #statusAppointment:disabled {
+            background-color: #f9f9f9;
+            color: #999;
+            cursor: not-allowed;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: none;
+        }
+
+        select {
+            padding: 5px;
+        }
+
+        input[type='radio'] {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            position: relative;
+        }
+
+        .radioText {
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .radioBox {
+            width: 100%;
+            display: flex;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        span.error {
+            color: red;
+        }
+
+        .btn.btn-sm.update-info-btn,
+        .btn.btn-sm.edit-btn {
+            text-transform: uppercase;
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .flex-grow-1 {
+            flex-grow: 1 !important;
+        }
+
+        .employer-pages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            margin-bottom: 16px;
+        }
+
+        .bg-white {
+            background-color: #fff !important;
+        }
+
+        .d-block {
+            display: block !important;
+        }
+
+        .text-secondary {
+            color: #6c757d !important;
+        }
+
+        .container-fluid {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .flex-column {
+            flex-direction: column !important;
+        }
+
+        .d-flex {
+            display: flex !important;
+        }
+
+        .align-items-center {
+            align-items: center !important;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap !important;
+        }
+
+        .text-nowrap {
+            white-space: nowrap !important;
+        }
+
+        .text-primary {
+            color: #0069DB !important;
+            margin-left: 5%;
+        }
+
+        .job-short-info {
+            gap: 12px;
+        }
+
+        .shortInfo-0-2-12 {
+            width: calc(33.33% - 8px);
+            max-width: calc(33.33% - 8px);
+            border-radius: 2px;
+        }
+
+        .shortInfoLabel-0-2-13 {
+            color: #64748B;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 16px;
+        }
+
+        .content-0-2-14 {
+            color: #334155;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .font-weight-bold {
+            font-weight: 700 !important;
+        }
+
+        .bg-light {
+            background-color: #F1F5F9 !important;
+        }
+
+        .no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .text-left {
+            text-align: left !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .text-tertiary {
+            color: #334155;
+        }
+    </style>
+</head>
+<body class="cv-employer">
+<div id="wrapper">
+    <!-- Topbar Start -->
+    <div class="navbar-custom">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+          <li class="d-none  d-sm-block">
+            <div>
+              <a href="/" class="nav-link waves-effect d-flex">
+                <i class="mdi mdi-home" style="font-size: 30px"></i>
+                <span>Cho người tìm việc</span>
+              </a>
+            </div>
+          </li>
+          <li class="dropdown notification-list">
+            <a
+                    class="nav-link dropdown-toggle nav-user mr-0 waves-effect"
+                    data-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-haspopup="false"
+                    aria-expanded="false"
+            >
+            {% if request.COOKIES.avatar != null and request.COOKIES.avatar != '' %}
+              <img
+                      src="{{ request.COOKIES.avatar }}"
+                      alt="user-image"
+                      class="rounded-circle"
+              />
+              {% else %}
+              <img
+                      src="https://api.dicebear.com/6.x/initials/svg?seed={{ request.COOKIES.avatar }}"
+                      alt="user-image"
+                      class="rounded-circle"
+              />
+              {% endif %}
+      
+              <span class="pro-user-name ml-1">
+                {{request.COOKIES.company_name}}
+                <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right profile-dropdown">
+              <!-- item-->
+              <div class="dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Xin chào !</h6>
+              </div>
+      
+              <!-- item-->
+              <a href="/employer/account" class="dropdown-item notify-item">
+                <i class="fe-user"></i>
+                <span>Tài khoản</span>
+              </a>
+      
+              <div class="dropdown-divider"></div>
+      
+              <!-- item-->
+              <a href="/employer/logout" class="dropdown-item notify-item">
+                <i class="fe-log-out"></i>
+                <span>Đăng xuất</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      
+        <!-- LOGO -->
+        <div class="logo-box">
+          <a href="/" class="logo text-center">
+            <span class="logo-lg">
+              <img src="{% static 'candidate/img/logo.png' %}" alt="" height="32" />
+            </span>
+          </a>
+        </div>
+      
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+          <li>
+            <button class="button-menu-mobile disable-btn waves-effect">
+              <i class="fe-menu"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+        <div
+                class="slimScrollDiv active"
+                style="position: relative; width: auto; height: 238px"
+        >
+          <div
+                  class="slimscroll-menu in"
+                  style="overflow: auto; width: auto; height: 238px"
+          >
+            <!-- User box -->
+            <div class="user-box text-center">
+              {% if request.COOKIES.avatar != null and request.COOKIES.avatar != '' %}
+              <img
+                      src="{{ request.COOKIES.avatar }}"
+                      alt="user-img"
+                      title="Mat Helme"
+                      class="rounded-circle img-thumbnail avatar-lg"
+              />
+              {% else %}
+              <img
+                      src="https://api.dicebear.com/6.x/initials/svg?seed={{ request.COOKIES.company_name }}"
+                      alt="user-img"
+                      title="Mat Helme"
+                      class="rounded-circle img-thumbnail avatar-lg"
+              />
+              {% endif %}
+      
+              <div class="dropdown">
+                <a
+                        href="#"
+                        class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+                        data-toggle="dropdown"
+                >
+                {{request.COOKIES.company_name}}
+                </a>
+              </div>
+              <p class="text-muted">Nhà tuyển dụng</p>
+            </div>
+      
+            <!--- Sidemenu -->
+            <div id="sidebar-menu" class="active">
+              <ul class="metismenu in" id="side-menu">
+                <li class="menu-item">
+                  <a href="/employer/">
+                    <i class="fas fa-suitcase"></i>
+                    <span> Quản lý công việc </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/employer/cv/">
+                      <i class="fas fa-file-alt"></i>
+                    <span> Quản lý CV </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- End Sidebar -->
+      
+            <div class="clearfix"></div>
+          </div>
+          <div
+                  class="slimScrollBar"
+                  style="
+              background: rgb(158, 165, 171);
+              width: 8px;
+              position: absolute;
+              top: 85px;
+              opacity: 0.4;
+              display: none;
+              border-radius: 7px;
+              z-index: 99;
+              right: 1px;
+              height: 68.6594px;
+            "
+          ></div>
+          <div
+                  class="slimScrollRail"
+                  style="
+              width: 8px;
+              height: 100%;
+              position: absolute;
+              top: 0px;
+              display: none;
+              border-radius: 7px;
+              background: rgb(51, 51, 51);
+              opacity: 0.2;
+              z-index: 90;
+              right: 1px;
+            "
+          ></div>
+        </div>
+        <!-- Sidebar -left -->
+      </div>
+    <!-- Left Sidebar End -->
+
+    <div class="content-page">
+        <div class="content">
+            <div class="cv-management flex-grow-1">
+                <div class="cv-management-header bg-white employer-pages-header">
+                    <h1 class="h4 page-title mb-0 pl-0 pb-3" style="color: #084ABC;">Thư xin việc đã nhận</h1>
+                </div>
+                <div class="cv-management-body">
+                    <div class="container-fluid mb-3 mb-lg-3">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="mr-2 text-nowrap">
+                                    Tên công việc:
+                                </div>
+                                <form id="form-filter-1" method="GET" class="form-inline">
+                                    <div class="row" id="appointment-management-1" data-id="">
+                                        <div class="form-group">
+                                            <select
+                                                    id="status-id"
+                                                    name="status"
+                                                    class="custom-select select-filter mb-1 text-primary"
+                                                    onchange="submitForm()"
+                                            >
+
+                                                <option value="">Tất cả tuyển dụng</option>
+                                                {% for title_item in list_title %}
+                                                <option value="{{ title_item.id }}">{{ title_item.title }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="job-short-info d-flex mt-3">
+                                <div class="col-6 p-3 bg-white d-flex flex-column justify-content-center shortInfo-0-2-12">
+                                    <div class="shortInfoLabel-0-2-13">Tổng số ứng viên</div>
+                                    <div class="content-0-2-14 mt-2">
+                                        {{ no_of_applicants }}
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                </div>
+                                <div class="col-6 p-3 bg-white d-flex flex-column justify-content-center shortInfo-0-2-12">
+                                    <div class="shortInfoLabel-0-2-13">Tổng số lượt xem</div>
+                                    <div class="content-0-2-14 mt-2">
+                                        {{ sum_views }}
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid my-3">
+                        <div class="d-flex flex-column bg-white p-md-4">
+                            <div class="container-0-2-16 flex-grow-1">
+                                <div class="d-flex justify-content-between flex-wrap px-2 px-md-0 py-3 pt-md-0 pb-md-4">
+                                    <div class="d-flex justify-content-between align-items-center header-0-2-15">
+                                        <form id="form-filter-2" method="GET" class="form-inline">
+                                            <div class="row" id="appointment-management-2" data-id="">
+                                                <div class="form-group">
+                                                    <select
+                                                            id="status-type"
+                                                            name="status"
+                                                            class="custom-select select-filter mb-1 text-secondary"
+                                                            onchange="submitFormType()"
+                                                    >
+                                                        <option value="0">Tất cả thư xin việc</option>
+                                                        <option value="1">Chưa xử lý</option>
+                                                        <option value="2">Đã duyệt</option>
+                                                        <option value="3">Từ chối</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="jobboard-table" class="table table-bordered table-hover mb-0 text-center">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th>Tên công việc</th>
+                                            <th>Tên ứng viên</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Email</th>
+                                            <th>Nhận lúc</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- <%
+                                            List<CVDataItem> list = (ArrayList<CVDataItem>) request.getAttribute("listCvData");
+                                            if (list.size() != 0) {
+                                        }} -->
+                                        {% if job_application_list != null %}
+                                        {% for job_application in job_application_list %}
+                                        <tr >
+                                            <td>{{ job_application.title }}</td>
+                                            <td>{{ job_application.name }}</td>
+                                            <td>{{ job_application.phone_number }}</td>
+                                            <td>{{ job_application.email }}</td>
+                                            <td>{{ job_application.submission_date|date:"d-m-Y" }}</td>
+                                            {% if job_application.status == 1 %}
+                                            <td class="text-secondary">Chờ xử lý</td>
+                                            {% elif job_application.status == 2  %}
+                                            <td class="text-primary">Đã xác nhận</td>
+                                            {% elif job_application.status == 3  %}
+                                            <td class="text-danger">Bị từ chối</td>
+                                            {% endif %}
+                                            <td>
+                                                <div class="action action-2">
+                                                    <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                                    <a href="/employer/cv/{{ job_application.id }}" style="color: blue;">Cập nhật</a>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="7" class="text-center">
+                                                <h4>Không có dữ liệu</h4>
+                                            </td>
+                                        </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <footer class="footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">© JobFinder 2023. All rights reserved.</div>
+                <div class="col-md-6">
+                  <div class="text-md-right footer-links d-none d-sm-block">
+                    <a
+                            href="javascript:void(0);"
+                            data-toggle="modal"
+                            data-target="#ModalAboutUs"
+                    >Điều khoản sử dụng</a
+                    >
+                    <a
+                            href="javascript:void(0);"
+                            data-toggle="modal"
+                            data-target="#ModalHelp"
+                    >Giúp đỡ</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </footer>
+          
+          <div
+                  class="modal fade"
+                  id="ModalAboutUs"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="myModalLabel"
+          >
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary" style="border-bottom: none">
+                  <h2 class="modal-title" id="myModalLabel">
+                    ĐIỀU KHOẢN SỬ DỤNG
+                  </h2>
+                  <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                  <div>
+                    <p style="text-align: justify">
+                      <strong>GIỚI THIỆU</strong>
+                    </p>
+                    <p style="text-align: justify">
+                      JobFinder - Hỗ trợ tìm việc và tuyển dụng nhanh chóng
+                    </p>
+                    <p style="text-align: justify">
+                      Chúng tôi duy trì quyền thay đổi hoặc điều chỉnh bất kỳ
+                      điều khoản và điều kiện nào dưới đây. Mọi sửa đổi nếu có
+                      sẽ có hiệu lực ngay lập tức sau khi đăng tải trên hệ
+                      thống trang này.
+                    </p>
+                    <p style="text-align: justify"><strong>SỬ DỤNG</strong></p>
+                    <p style="text-align: justify">
+                      <strong
+                      >Thông tin người cung cấp dịch vụ “Tìm kiếm việc làm”</strong
+                      >
+                    </p>
+                    <p style="text-align: justify">Xin vui lòng liên hệ:</p>
+                    <p style="text-align: justify">
+                      <strong>Phòng truyền thông Job Finder</strong>
+                    </p>
+                    <p style="text-align: justify">
+                      ĐKKD số: 0123456789, Sở&nbsp; KH-ĐT Đà Nẵng cấp ngày:
+                      16/10/2023<br />
+                    </p>
+                    <p style="text-align: justify">
+                      Địa chỉ: 54 Nguyễn Lương Bằng, Hòa Khánh Bắc, Liên
+                      Chiểu, Đà Nẵng
+                    </p>
+                    <p style="text-align: justify">SĐT: 012.456.7893</p>
+                  </div>
+                </div>
+                <div class="modal-footer" style="border-top: none">
+                  <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-dismiss="modal"
+                  >
+                    Đóng
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div
+                  class="modal fade"
+                  id="ModalHelp"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="myModalLabel"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary" style="border-bottom: none">
+                  <h2 class="modal-title" id="myModalLabel1">GIÚP ĐỠ</h2>
+                  <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                  <p style="text-align: justify">
+                    <strong>LIÊN HỆ HỖ TRỢ</strong>
+                  </p>
+                  <p style="text-align: justify" class="text-primary">
+                    <strong>ĐỊA CHỈ VĂN PHÒNG</strong>
+                  </p>
+                  <p style="text-align: justify">
+                    Tầng 3, Tòa nhà JobFinder, 54 Nguyễn Lương Bằng, Hòa Khánh
+                    Bắc, Liên Chiểu, Đà Nẵng<br />
+                  </p>
+                  <p style="text-align: justify" class="text-primary">
+                    <strong>THÔNG TIN LIÊN HỆ</strong>
+                  </p>
+                  <p style="text-align: justify">SĐT: 098.765.4321</p>
+                  <p style="text-align: justify">
+                    Email: support@qtnclinic.com (8h - 17h)
+                  </p>
+                </div>
+                <div class="modal-footer" style="border-top: none">
+                  <button
+                          type="button"
+                          class="btn btn-primary"
+                          data-dismiss="modal"
+                  >
+                    Đóng
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="{% static 'admin_employer/js/vendor.min.js' %}"></script>
+<script src="{% static 'admin_employer/js/app.min.js' %}"></script>
+<script src="{% static 'admin_employer/libs/toastr/toastr.min.js' %}"></script>
+<script src="{% static 'admin_employer/js/pages/toastr.init.js' %}"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var id = urlParams.get('jb_id');
+        var stt = urlParams.get('status');
+
+        if (id) {
+            var statusFilter = document.getElementById('status-id');
+            var options = statusFilter.options;
+
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value === id) {
+                    options[i].selected = true;
+                    break;
+                }
+            }
+        }
+        if (stt) {
+            var statusFilter = document.getElementById('status-type');
+            var options = statusFilter.options;
+
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].value === stt) {
+                    options[i].selected = true;
+                    break;
+                }
+            }
+        }
+    });
+
+    function submitForm() {
+        var selectedOption = document.getElementById("status-id").value;
+        var url = window.location.href.split('?')[0]; // Lấy URL hiện tại và loại bỏ tham số truy vấn (?id=value)
+
+        if (selectedOption) {
+            url += "?jb_id=" + selectedOption; // Gán tham số truy vấn "?id=value" vào URL
+        }
+        window.location.href = url; // Chuyển hướng trình duyệt đến URL mới
+    }
+    function submitFormType() {
+        var selectedOption = document.getElementById("status-type").value;
+        var url = window.location.href.split('?')[0]; // Lấy URL hiện tại và loại bỏ tham số truy vấn (?status=value)
+
+        if (selectedOption) {
+            url += "?status=" + selectedOption; // Gán tham số truy vấn "?status=value" vào URL
+        }
+
+        var idOption = document.getElementById("status-id").value;
+        if (idOption) {
+            if (url.includes("?")) {
+                url += "&jb_id=" + idOption; // Thêm tham số truy vấn "&id=value" vào URL
+            } else {
+                url += "?jb_id=" + idOption; // Thêm tham số truy vấn "?id=value" vào URL
+            }
+        }
+
+        window.location.href = url; // Chuyển hướng trình duyệt đến URL mới
+    }
+</script>
