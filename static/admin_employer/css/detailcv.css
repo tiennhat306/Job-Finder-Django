@@ -1,0 +1,129 @@
+@charset "ISO-8859-1";
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    height: 3rem;
+}
+
+.form_infomation {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    min-height: 85vh; /* Ensure the form is at least the full height of the viewport */
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    max-width: 100%; /* Ensure the form does not exceed the width of its container */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.row {
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -3%;
+}
+
+.col-md-6 {
+    width: 49%;
+    padding-right: 1%;
+}
+
+.col-md-12 {
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form_position {
+    display: flex;
+    justify-content: space-between;
+}
+
+.position{
+    width: 20rem;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Style the label for consistency */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    background-color: #084ABC;
+    color: white;
+    font-size: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: royalblue;
+}
+
+
+.download-btn {
+    color: white;
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.download {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.download-link {
+    text-decoration: none;
+}
+
+.download-btn:hover {
+    background-color: rgb(140, 147, 165);
+}
