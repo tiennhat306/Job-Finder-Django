@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="bradcam_area bradcam_bg_1">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="bradcam_text">
+						<h3 id="jobTitle">
+							{{jobboard.title}}
+							<h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ bradcam_area  -->
+
+	<div class="job_details_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="job_details_header">
+						<div class="single_jobs white-bg d-flex justify-content-between">
+							<div class="jobs_left d-flex align-items-center">
+								<div class="thumb" style="padding: 0px;">
+									<img src="{{jobboard.logo}}" alt="" style="height: 82px; width: 82px;">			
+								</div>
+								<div class="jobs_conetent">
+									<a href="#"><h4 id="jobBrand">{{jobboard.title}}</h4></a>
+									<div class="links_locat d-flex align-items-center">
+										<div class="location">
+											<p id="companyName">
+												<i class="fa fa-map-marker"></i>
+												{{jobboard.company_name}}
+											</p>
+										</div>
+										<div class="location">
+											<p id="city">
+												<i class="fa fa-clock-o"></i>
+												{{jobboard.city_name}}
+											</p>
+										</div>
+										<div class="location">
+											<p id="address">
+												<i class="fa fa-map-marker"></i>
+												{{jobboard.address}}
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="jobs_right">
+								<div class="apply_now">
+									<a class="heart_mark" href="#"> <i class="ti-heart"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="descript_wrap white-bg">
+						<div class="single_wrap">
+							<h4>Sơ lược công ty</h4>
+							<p id="company-description">
+								{{jobboard.employer.description}}
+							</p>
+						</div>
+						<div class="single_wrap">
+							<h4>Mô tả công việc</h4>
+							<p id="job-description">
+								{{jobboard.job_description}}
+							</p>
+						</div>
+						<div class="single_wrap">
+							<h4>Kinh nghiệm, kỹ năng yêu cầu</h4>
+							<p id="experience-detail">
+								{{jobboard.requirements}}
+							</p>
+						</div>
+						<div class="single_wrap">
+							<h4>Phúc lợi công việc</h4>
+							<p id="prize-bonus">
+								{{jobboard.benefits}}
+							</p>
+						</div>
+					</div>
+					<div class="apply_job_form white-bg">
+						<h4>Apply for the job</h4>
+						<form action="{% url 'upload-cv' %}" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input_field">
+										<input type="text" name="name" placeholder="Your name">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input_field">
+										<input type="text" name="email" placeholder="Email">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="input_field">
+										<input type="text" name="phone_number" placeholder="Phone number">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<button type="button" id="inputGroupFileAddon03">
+												<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+											</button>
+										</div>
+										<div class="custom-file">
+											<input type="file" class="custom-file-input"
+												id="inputGroupFile03"
+												name="cv"
+												aria-describedby="inputGroupFileAddon03"> <label
+												class="custom-file-label" for="inputGroupFile03">Upload
+												CV</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="input_field">
+										<textarea name="#" id="" cols="30" rows="10"
+											placeholder="Coverletter"></textarea>
+									</div>
+								</div>
+								<input type="hidden" name="job_id" value="{{jobboard.id}}">
+								<input type="hidden" name="candidate_id" value="{{ request.COOKIES.id }}">
+								<div class="col-md-12">
+									<div class="submit_btn">
+										<!-- <button class="boxed-btn3 w-100" type="submit" >Apply
+											Now</button> -->
+											{% if request.COOKIES.id %}
+											<button class="boxed-btn3 w-100" type="submit">Apply Now</button>
+											{% else %}
+											<a href="{% url 'candidate-login' %}" class="boxed-btn3
+												w-100">Login to apply</a>
+											{% endif %}
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="job_sumary">
+						<div class="summery_header">
+							<h3>Chi tiết công việc</h3>
+						</div>
+						<div class="job_content">
+							<ul>
+								<li>Ngày đăng: <span id="postingDate"> {{jobboard.posting_date|date:"d-m-Y"}}
+								</span></li>
+								<li>Số lượng tuyển dụng: <span id="requireNumber"> {{jobboard.quantity}}
+								</span></li>
+								<li>Mức lương: <span id="salary"> {{jobboard.salary}}
+								</span></li>
+								<li>Loại công việc: <span id="workType"> {{ jobboard.job_type }}
+								</span></li>
+								<li>Cấp bậc: <span id="rank"> {{ jobboard.job_level }}
+								</span></li>
+								<li>Học vấn: <span id="qualification"> {{jobboard.qualification}}
+								</span></li>
+								<li>Mức kinh nghiệm: <span id="yearOfExperience"> {{jobboard.years_of_experience}}
+								</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="share_wrap d-flex">
+						<span>Share at:</span>
+						<ul>
+							<li><a href="#"> <i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"> <i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"> <i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"> <i class="fa fa-envelope"></i></a></li>
+						</ul>
+					</div>
+
+					<div class="job_sumary">
+						<div class="summery_header">
+							<h3>Liên hệ</h3>
+						</div>
+						<div class="job_content">
+							<ul>
+								<li>Tên liên hệ: <span id="contactName"> {{jobboard.contact_name}}
+								</span></li>
+								<li>Số điện thoại liên lạc: <span id="contactNumber">
+										{{jobboard.contact_number}}
+								</span></li>
+								<li>Email liên lạc: <span id="contactEmail"> {{jobboard.contact_email}}
+								</span></li>
+								<li>Website công ty: <span id="websiteCompany"> {{jobboard.website}}
+								</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

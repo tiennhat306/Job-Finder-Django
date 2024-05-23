@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Ứng viên{% endblock %}
+
+{% block content %}
+  <div class="bradcam_area bradcam_bg_1">
+      <div class="container">
+          <div class="row">
+              <div class="col-xl-12">
+                  <div class="bradcam_text">
+                      <h3>Upload CV Thành Công</h3>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--/ bradcam_area  -->
+
+   <!--================Blog Area =================-->
+   <section class="blog_area single-post-area section-padding">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8 posts-list">
+               <div class="single-post">
+                  <div class="feature-img">
+                     <img class="img-fluid" src="{% static 'candidate/img/service/about.png' %}" alt="">
+                  </div>
+                  <div class="blog_details">
+                     <h2>Đăng tin tuyển dụng,
+                        tìm kiếm ứng viên hiệu quả
+                     </h2>
+                     <p class="excert">
+                        <b>Đăng tin tuyển dụng</b>
+                        Đăng việc làm của bạn lên trang web của chúng tôi để thu hút ứng viên tiềm năng
+                     </p>
+                     <p>
+                        <b>Tìm kiếm hồ sơ ứng viên</b>
+                        Truy cập kho ứng viên chất lượng của CareerLink để tìm đúng nhân tài cho công ty bạn
+                     </p>
+                     <div class="quote-wrapper">
+                        <div class="quotes">
+                           <b>Tại sao chọn Job Finder?</b>
+                           Là nhà cung cấp hàng đầu các dịch vụ tuyển dụng trực tuyến tại Việt Nam, Job Finder có hơn 100,000 người tìm việc mỗi ngày. Đăng công việc trên CareerLink.vn là cách hiệu quả nhất để nhận hồ sơ phù hợp từ người tìm việc.
+                        </div>
+                     </div>
+                     <p>
+                        <b>Dịch vụ Nhân sự cao cấp</b>
+                        Executive Search - Giải pháp tối ưu cho nhân sự chủ chốt, nhân sự cấp cao và các vị trí đòi hỏi chuyên môn cao
+                     </p>
+                  </div>
+               </div>
+               <div class="navigation-top">
+                  <div class="d-sm-flex justify-content-between text-center">
+                     <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span></p>
+                     <div class="col-sm-4 text-center my-2 my-sm-0">
+                        <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+                     </div>
+                     <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                     </ul>
+                  </div>
+
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="blog_right_sidebar">
+                  <aside class="single_sidebar_widget post_category_widget">
+                     <h4 class="widget_title">Ngành nghề phổ biến</h4>
+                     <ul class="list cat-list">
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Công nghệ thông tin</p>
+                              <p>(37)</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Kế toán/Kiểm toán</p>
+                              <p>(10)</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Ngân hàng/Chứng khoán</p>
+                              <p>(03)</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Thư ký/Hành chính</p>
+                              <p>(11)</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Giáo dục/Đào tạo</p>
+                              <p>(21)</p>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="#" class="d-flex">
+                              <p>Chăm sóc y tế</p>
+                              <p>(21)</p>
+                           </a>
+                        </li>
+                     </ul>
+                  </aside>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <!--================ Blog Area end =================-->
+{% endblock %}

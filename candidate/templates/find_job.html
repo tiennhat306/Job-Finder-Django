@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bradcam_area bradcam_bg_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bradcam_text">
+                    <h3>{{ num_jobs }} công việc có sẵn</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ bradcam_area  -->
+
+<!-- job_listing_area_start  -->
+<div class="job_listing_area plus_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="job_filter white-bg">
+                    <div class="form_inner white-bg">
+                        <h3>Tìm kiếm</h3>
+                        <form action="{% url 'find-job' %}" method="GET" id="query-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <input type="text" name="search_text" placeholder="Nhập từ khóa tìm kiếm" value="{{search}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select class="wide" name="location" id="status-location">
+                                            <option value="0" data-display="Địa điểm">Địa điểm</option>
+                                            {% for city in cities %}
+                                            <option value="{{city.id}}" {% if city.id|add:0 == location_id %}selected{% endif %}>{{city.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select class="wide" name="career" id="status-career">
+                                            <option value="" data-display="Ngành nghề">Ngành nghề</option>
+                                            {% for career in careers %}
+                                            <option value="{{career.id}}" {% if career.id|add:0 == career_id %}selected{% endif %}>{{career.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single_field">
+                                        <select class="wide" name="job_type" id="status-jobtype">
+                                            <option value="0" data-display="Loại công việc">Loại công việc</option>
+                                            <option value="1" {% if jobtype_id|add:0 == 1 %}selected{% endif %}>Toàn thời gian</option>
+                                            <option value="2" {% if jobtype_id|add:0 == 2 %}selected{% endif %}>Bán thời gian</option>
+                                            <option value="3" {% if jobtype_id|add:0 == 3 %}selected{% endif %}>Hợp đồng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="index" id="index" value="1">
+                            <div class="reset_btn">
+                                <button  class="boxed-btn3 w-100" type="submit">Tìm kiếm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="recent_joblist_wrap">
+                    <div class="recent_joblist white-bg ">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>Danh sách công việc</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job_lists m-0">
+                    <div class="row">
+                        {% for job in job_list %}
+                        <div class="col-lg-12 col-md-12">
+                            <div class="single_jobs white-bg d-flex justify-content-between">
+                                <div class="jobs_left d-flex align-items-center">
+                                    <div class="thumb"  style="padding: 0px;">
+                                        <img src="{{ job.logo }}" alt="" style="height: 82px; width: 82px;">
+                                    </div>
+                                    <div class="jobs_conetent">
+                                        <a href="job_details.html"><h4>{{ job.title }}</h4></a>
+                                        <div class="links_locat d-flex align-items-l">
+                                            <div class="location col-8" style="margin-right: 20px;">
+                                                <p> <i class="fa fa-map-marker"></i>{{ job.address }}</p>
+                                            </div>
+                                            <div class="location col-4" style="margin-right: 20px;">
+                                                <p> <i class="fa fa-clock-o"></i>{{ job.type }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="jobs_right">
+                                    <div class="apply_now">
+                                        <a href="/job-detail/{{job.id}}" class="boxed-btn3">Đăng ký ngay</a>
+                                    </div>
+                                    <div class="date">
+                                        <p>Ngày hết hạn: </p>
+                                        <p>{{ job.exp_date|date:"d-m-Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pagination_wrap">
+                                <ul>
+                                    <li><a href="/find-job/?search_text={{search}}&location={{location_id}}&career={{career_id}}&job_type={{jobtype_id}}&index={{index|add:-1}}"> <i class="ti-angle-left"></i> </a></li>
+                                    {% for i in end_page %}
+                                        <li><a href="/find-job/?search_text={{search}}&location={{location_id}}&career={{career_id}}&job_type={{jobtype_id}}&index={{i}}" {% if index == i %}style="background-color: #28a745;"{% endif %}><span>{{ i }}</span></a></li>
+                                    {% endfor %}
+                                    <li><a href="/find-job/?search_text={{search}}&location={{location_id}}&career={{career_id}}&job_type={{jobtype_id}}&index={{index|add:1}}"> <i class="ti-angle-right"></i> </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

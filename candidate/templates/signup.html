@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+        <meta charset="utf-8" />
+        <title>Đăng ký ứng viên</title>
+		{% load static %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+       <link href="{% static 'candidate/css/signUpCandidate.css' %}" rel="stylesheet" type="text/css" />
+    </head>
+<body>
+	<!-- <nav>
+		<a href="/">Trang chủ</a> <a href="/tim-viec">Tìm việc</a> <a
+			href="/dang-ki">Đăng ký</a>
+	</nav> -->
+
+	<main>
+		<!-- <section class="banner">
+      <img src="img/banner.png" alt="CareerLink">
+    </section> -->
+
+		<section class="content">
+			<h1>Người tìm việc đăng kí</h1>
+			<form action="{% url 'candidate-signup' %}" method="post">
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="name">Họ và tên</label> <input type="text"
+						class="form-control" id="name" name="name" required>
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label> <input type="email"
+						class="form-control" id="email" name="email" required>
+				</div>
+				<div class="form-group">
+					<label for="phone">Số điện thoại</label> <input type="text"
+						class="form-control" id="phone" name="phone" required>
+				</div>
+				<div class="form-group">
+					<label for="gender">Giới tính</label> <input type="text"
+						class="form-control" id="gender" name="gender" required>
+				</div>
+				<div class="form-group">
+					<label for="birthday">Ngày sinh</label> <input type="date"
+						class="form-control" id="birthday" name="birthday" required>
+				</div>
+				<div class="form-group">
+					<label for="password">Mật khẩu</label> <input type="password"
+						class="form-control" id="password" name="password" required>
+				</div>
+
+				<div class="form-group">
+					<label for="confirm_password">Nhập lại mật khẩu</label> <input
+						type="password" class="form-control" id="confirm_password"
+						name="confirm_password" required>
+					<div id="passwordMatchMessage" class="password-match-error"></div>
+				</div>
+				<button type="submit" id="submitButton" name="signUpCandidate">Đăng kí</button>
+			</form>
+		</section>
+	</main>
+
+	<!-- <footer>
+    <p>Copyright &copy; 2023 CareerLink</p>
+  </footer> -->
+
+   <script>
+   var submitButton = document.getElementById('submitButton');
+   var passwordInput = document.getElementById('password');
+   var confirmInput = document.getElementById('confirm_password');
+
+   document.getElementById('confirm_password').addEventListener('input', function () {
+     var matchMessage = document.getElementById('passwordMatchMessage');
+
+     if (passwordInput.value === confirmInput.value) {
+       confirmInput.classList.remove('password-match-error');
+       confirmInput.classList.add('password-match-success');
+       matchMessage.textContent = 'Mật khẩu trùng khớp';
+       matchMessage.classList.remove('password-match-error');
+       matchMessage.classList.add('password-match-success');
+       submitButton.disabled = false; // Cho phép submit khi mật khẩu trùng khớp
+     } else {
+       confirmInput.classList.remove('password-match-success');
+       confirmInput.classList.add('password-match-error');
+       matchMessage.textContent = 'Mật khẩu không khớp';
+       matchMessage.classList.remove('password-match-success');
+       matchMessage.classList.add('password-match-error');
+       submitButton.disabled = true; // Ngăn chặn submit khi mật khẩu không khớp
+     }
+   });
+</script>
+</body>
+</html>
+
